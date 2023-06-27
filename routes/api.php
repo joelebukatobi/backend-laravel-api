@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// News Controller Routes 
 Route::get('/news', [NewsController::class, 'getNews']);
 Route::get('/news/search', [NewsController::class, 'searchNews']);
 Route::get('/news/category', [NewsController::class, 'newsCategory']);
+
+// User Registration and Login Routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [AuthController::class, 'user']);
+});
+
+Route::post('/logout', [AuthController::class, 'logout']);

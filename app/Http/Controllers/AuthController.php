@@ -37,7 +37,7 @@ class AuthController extends Controller
             'categories' => $this->parseCSV($request->input('categories')),
         ]);
 
-        return response()->json(['message' => 'User registered successfully'], 201);
+        return response()->json(['status' => 'ok', 'message' => 'User registered successfully'], 201);
     }
 
     /**
@@ -76,8 +76,14 @@ class AuthController extends Controller
             $user = Auth::user();
             $token = $user->createToken('authToken')->plainTextToken;
 
-            return response()->json(['access_token' => $token], 200);
+            // Remove the token from the response
+            return response()->json([
+                'status' => 'ok',
+                'message' => 'Logged in successfully',
+                'token' => $token
+            ], 200);
         }
+
 
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.'],
@@ -85,14 +91,20 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the authenticated user.
+     * Get the authenticated user
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function user(Request $request)
     {
-        return response()->json(['user' => $request->user()]);
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found.'], 404);
+        }
+
+        return response()->json(['data' => $user]);
     }
 
     /**
@@ -103,8 +115,10 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
 
-        return response()->json(['message' => 'User logged out successfully']);
+        return response()->json(['status' => 'ok', 'message' => 'User logged out successfully']);
     }
 }
