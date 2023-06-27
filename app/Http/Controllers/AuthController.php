@@ -12,6 +12,47 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     /**
+     * Update the authenticated user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'first_name' => 'sometimes|required|string',
+            'last_name' => 'sometimes|required|string',
+            'email' => [
+                'sometimes',
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+            'password' => 'sometimes|required|string|confirmed|min:8',
+            'sources' => 'nullable|string',
+            'categories' => 'nullable|string',
+        ]);
+
+        $userData = [
+            'first_name' => $request->input('first_name', $user->first_name),
+            'last_name' => $request->input('last_name', $user->last_name),
+            'email' => $request->input('email', $user->email),
+            'sources' => $this->parseCSV($request->input('sources', implode(',', $user->sources))),
+            'categories' => $this->parseCSV($request->input('categories', implode(',', $user->categories))),
+        ];
+
+        if ($request->has('password')) {
+            $userData['password'] = Hash::make($request->input('password'));
+        }
+
+        $user->update($userData);
+
+        return response()->json(['status' => 'ok', 'message' => 'User updated successfully']);
+    }
+
+    /**
      * Register a new user.
      *
      * @param Request $request

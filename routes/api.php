@@ -26,10 +26,10 @@ Route::get('/news/search', [NewsController::class, 'searchNews']);
 Route::get('/news/category', [NewsController::class, 'newsCategory']);
 
 // User Registration and Login Routes
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/user/register', [AuthController::class, 'register']);
+Route::post('/user/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
+    Route::post('/user/logout', [AuthController::class, 'logout']);
+    Route::post('/user/update', [AuthController::class, 'update']);
 });
-
-Route::post('/logout', [AuthController::class, 'logout']);

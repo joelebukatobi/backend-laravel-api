@@ -58,7 +58,7 @@ class NewsController extends Controller
 
             // Return a JSON response with the formatted articles
             return response()->json([
-                'status' => 200,
+                'status' => 'ok',
                 'message' => 'Success',
                 'page' => $request->query('page'),
                 'data' => $formattedArticles
@@ -84,28 +84,28 @@ class NewsController extends Controller
         $apiClients = [
 
             // The News API
-            'The News API' => [
-                'url' => 'https://newsapi.org/v2/everything',
-                'parameters' => [
-                    'q' => $request->query('q') ?? '*',
-                    'pageSize' => 10,
-                    'page' => $request->query('page'),
-                    'apiKey' => $this->getApiKey('news_api_key'),
-                ],
-                'responseKey' => 'articles',
-            ], // Note: The News API is limited to 10 pages of results
+            // 'The News API' => [
+            //     'url' => 'https://newsapi.org/v2/everything',
+            //     'parameters' => [
+            //         'q' => $request->query('q') ?? '*',
+            //         'pageSize' => 10,
+            //         'page' => $request->query('page'),
+            //         'apiKey' => $this->getApiKey('news_api_key'),
+            //     ],
+            //     'responseKey' => 'articles',
+            // ], // Note: The News API is limited to 10 pages of results
 
             // New York Times API
-            'The New York Times' => [
-                'url' => 'https://api.nytimes.com/svc/search/v2/articlesearch.json',
-                'parameters' => [
-                    'q' => $request->query('q'),
-                    'pageSize' => 10,
-                    'page' => $request->query('page'),
-                    'api-key' => $this->getApiKey('ny_times_api_key'),
-                ],
-                'responseKey' => 'response.docs',
-            ],
+            // 'The New York Times' => [
+            //     'url' => 'https://api.nytimes.com/svc/search/v2/articlesearch.json',
+            //     'parameters' => [
+            //         'q' => $request->query('q'),
+            //         'pageSize' => 10,
+            //         'page' => $request->query('page'),
+            //         'api-key' => $this->getApiKey('ny_times_api_key'),
+            //     ],
+            //     'responseKey' => 'response.docs',
+            // ],
 
             // The Guardian API
             'The Guardian' => [
