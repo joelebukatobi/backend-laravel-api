@@ -54,4 +54,4 @@ COPY . .
 EXPOSE 8000
 
 # Start the PHP development server
-CMD bash -c "composer install && php artisan serve && php artisan migrate --host 0.0.0.0 --port 8000"
+CMD bash -c "composer install && php artisan serve --host 0.0.0.0 --port 8000"
