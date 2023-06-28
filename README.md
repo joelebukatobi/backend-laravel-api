@@ -14,19 +14,29 @@ Before running this project, make sure you have the following dependencies insta
 
 To get started with the BuzzStack project, follow the steps below:
 
-Clone the Backend Repository:
+-   Create an **"_/app_"**. directory
 
 ```
-git clone https://github.com/joelebukatobi/backend-laravel-api
+mkdir app
 ```
 
-Clone the Frontend Repository
+-   Create a frontend and backend folder within the **"_/app_"** directory
 
 ```
-git clone https://github.com/joelebukatobi/react-news-app
+touch frontend backend
 ```
 
-Place the cloned frontend repository in the same directory as the backend repository i.e. **"_/app_"**.
+-   Navigate to the backend directory and clone the Backend Repository:
+
+```
+git clone https://github.com/joelebukatobi/backend-laravel-api .
+```
+
+-   Do the same for the frontend as well
+
+```
+git clone https://github.com/joelebukatobi/react-news-app .
+```
 
 ### **Creating the _docker-compose.yaml file_**
 
