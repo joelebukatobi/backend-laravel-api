@@ -22,6 +22,9 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update; \
     apt-get upgrade -y; \
     apt-get install -y --no-install-recommends \
+            zip \ 
+            unzip \ 
+            git \
             curl \
             libmemcached-dev \
             libz-dev \
@@ -35,6 +38,8 @@ RUN apt-get update; \
             libmcrypt-dev \
             libonig-dev; \
     rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install pdo mbstring pdo_mysql; 
 
 # Set the working directory
 WORKDIR /app/backend

@@ -1,10 +1,7 @@
 # Ignore the vendor directory and its contents
-/vendor
 /node_modules
 
 # Ignore development files and directories
-/.env
-/.env.*
 /.idea
 /.vscode
 /.git

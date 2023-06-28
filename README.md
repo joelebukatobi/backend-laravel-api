@@ -54,7 +54,7 @@ services:
       DB_PORT: 3306
       DB_DATABASE: buzzstack
       DB_USERNAME: root
-      DB_PASSWORD: password
+      DB_PASSWORD:
     ports:
       - 8000:8000
     volumes:
@@ -70,7 +70,7 @@ services:
       dockerfile: Dockerfile
     tty: true
     ports:
-      - 3000:3000
+      - 5173:5173
     volumes:
       - ./frontend:/app/frontend
     depends_on:
@@ -84,7 +84,7 @@ services:
       MYSQL_DATABASE: 'buzzstack'
       MYSQL_USER: 'root'
       MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: ''
     volumes:
       - .dbdata:/var/lib/mysql
     networks:
