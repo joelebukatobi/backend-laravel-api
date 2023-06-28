@@ -126,7 +126,7 @@ Docker Compose will build the images and create a network for the backend and fr
 ### **Access the Applications**
 
 Laravel Backend: Open your web browser and visit http://localhost:8000.
-React Frontend: Open your web browser and visit http://localhost:3000.
+React Frontend: Open your web browser and visit http://localhost:5173.
 Start Developing:
 
 You're all set! You can now start developing your Laravel backend and React frontend within their respective repositories. Any changes you make to the code will be reflected in the running containers.
