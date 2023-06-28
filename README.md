@@ -79,7 +79,7 @@ services:
       - app
 
   db:
-    image: mysql:5.7
+    image: mysql:8.0.33
     environment:
       MYSQL_DATABASE: 'buzzstack'
       MYSQL_USER: 'root'
