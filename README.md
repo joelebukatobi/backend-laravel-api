@@ -6,6 +6,7 @@ This project consists of a Laravel Backend and a React Frontend, both dockerized
 
 Before running this project, make sure you have the following dependencies installed on your machine:
 
+-   Git
 -   Docker
 -   Docker Compose
 
@@ -25,36 +26,63 @@ Clone the Frontend Repository
 git clone https://github.com/joelebukatobi/react-news-app
 ```
 
-Place the cloned frontend repository in the same directory as the backend repository for example **"_/app_"**.
+Place the cloned frontend repository in the same directory as the backend repository i.e. **"_/app_"**.
 
 ### **Creating the _docker-compose.yaml file_**
 
 Open a terminal and navigate to the root directory of the project **"_/app_"** and create the file **_docker.compose.yaml_** file and paste the following in using your favourite editor
 
 ```
-version: '3'
+version: '3.7'
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: buzzstack
+      DB_USERNAME: root
+      DB_PASSWORD: password
     ports:
       - 8000:8000
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      - db
     networks:
-      - buzzstack
+      - app
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    tty: true
     ports:
       - 3000:3000
+    volumes:
+      - ./frontend:/app/frontend
+    depends_on:
+      - backend
     networks:
-      - buzzstack
+      - app
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'buzzstack'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - .dbdata:/var/lib/mysql
+    networks:
+      - app
 
 networks:
-  buzzstack:
-
+  app:
+    driver: bridge
 
 ```
 
