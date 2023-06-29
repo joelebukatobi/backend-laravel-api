@@ -6,5 +6,5 @@
 /.vscode
 /.git
 
-# Ignore environment variables 
-/.env.local
+# Ignore all files with the name .env
+**/.env

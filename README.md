@@ -131,9 +131,9 @@ Docker Compose will build the images and create a network for the backend and fr
 
 Ensure to get API keys from the following vendors and replace in the **_.env_** file
 
--   The New York Times API
--   TheNEWS API
--   The Guardian
+-   [The New York Times API](https://developer.nytimes.com/get-started)
+-   [TheNEWS API](https://newsapi.org/register)
+-   [The Guardian](https://bonobo.capi.gutools.co.uk/register/developer)
 
 ### **Access the Applications**
 
