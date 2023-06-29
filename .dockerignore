@@ -6,3 +6,5 @@
 /.vscode
 /.git
 
+# Ignore environment variables 
+/.env.local

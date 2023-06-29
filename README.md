@@ -46,6 +46,7 @@ Open a terminal and navigate to the root directory of the project **"_/app_"** a
 version: '3.7'
 services:
   backend:
+    container_name: buzzstack-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -53,8 +54,8 @@ services:
       DB_HOST: db
       DB_PORT: 3306
       DB_DATABASE: buzzstack
-      DB_USERNAME: root
-      DB_PASSWORD:
+      DB_USERNAME: buzzstack
+      DB_PASSWORD: password
     ports:
       - 8000:8000
     volumes:
@@ -65,6 +66,7 @@ services:
       - app
 
   frontend:
+    container_name: buzzstack-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -79,12 +81,13 @@ services:
       - app
 
   db:
+    container_name: buzzstack-db
     image: mysql:8.0.33
     environment:
       MYSQL_DATABASE: 'buzzstack'
-      MYSQL_USER: 'root'
+      MYSQL_USER: 'buzzstack'
       MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ROOT_PASSWORD: 'password'
     volumes:
       - .dbdata:/var/lib/mysql
     networks:
@@ -93,6 +96,7 @@ services:
 networks:
   app:
     driver: bridge
+
 
 ```
 
@@ -122,6 +126,14 @@ docker-compose up
 ```
 
 Docker Compose will build the images and create a network for the backend and frontend containers to communicate. The Laravel backend will be exposed on port 8000, and the React frontend will be exposed on port 3000.
+
+### **Environment Variables**
+
+Ensure to get API keys from the following vendors and replace in the **_.env_** file
+
+-   The New York Times API
+-   TheNEWS API
+-   The Guardian
 
 ### **Access the Applications**
 
